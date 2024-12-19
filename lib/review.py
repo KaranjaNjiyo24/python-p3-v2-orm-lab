@@ -110,7 +110,13 @@ class Review:
 
     def update(self):
         """Update the table row corresponding to the current Review instance."""
-        pass
+        sql = '''
+            UPDATE reviews
+            SET year = ?, summary = ?, employee_id = ?
+            WHERE id = ?
+        '''
+        CURSOR.execute(sql, (self.year, self.summary, self.employee_id, self.id))
+        CONN.commit()
 
     def delete(self):
         """Delete the table row corresponding to the current Review instance,
