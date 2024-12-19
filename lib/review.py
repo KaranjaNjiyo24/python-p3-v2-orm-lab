@@ -60,7 +60,16 @@ class Review:
     @classmethod
     def create(cls, year, summary, employee_id):
         """ Initialize a new Review instance and save the object to the database. Return the new instance. """
-        pass
+        if not isinstance(year, int):
+            raise ValueError("Year must be an integer")
+        if year < 2000:
+            raise ValueError("Year must be 2000 or later")
+        if not summary or len(str(summary).strip()) == 0:
+            raise ValueError("Summary cannot be empty")
+    
+        review = cls(year, summary, employee_id)
+        review.save()
+        return review
    
     @classmethod
     def instance_from_db(cls, row):
