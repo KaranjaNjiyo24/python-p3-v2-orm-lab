@@ -86,7 +86,16 @@ class Review:
     def instance_from_db(cls, row):
         """Return an Review instance having the attribute values from the table row."""
         # Check the dictionary for  existing instance using the row's primary key
-        pass
+        if row is None:
+            return None
+        
+        review_id = row[0]
+        if review_id in cls.all:
+            return cls.all[review_id]
+        
+        review = cls(row[1], row[2], row[0])
+        cls.all[review_id] = review
+        return review
    
 
     @classmethod
