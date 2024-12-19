@@ -101,7 +101,12 @@ class Review:
     @classmethod
     def find_by_id(cls, id):
         """Return a Review instance having the attribute values from the table row."""
-        pass
+        sql = '''
+            SELECT * FROM reviews
+            WHERE id = ?
+        '''
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row)
 
     def update(self):
         """Update the table row corresponding to the current Review instance."""
