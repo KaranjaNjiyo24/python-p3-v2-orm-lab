@@ -13,6 +13,17 @@ class Review:
         self.year = year
         self.summary = summary
         self.employee_id = employee_id
+    
+    @property
+    def employee_id(self):
+        return self._employee_id
+    
+    @employee_id.setter
+    def employee_id(self, employee_id):
+        if isinstance(employee_id, int) and Employee.find_by_id(employee_id):
+            self._employee_id = employee_id
+        else:
+            raise ValueError("Employee ID must reference an existing employee.")
 
     def __repr__(self):
         return (
